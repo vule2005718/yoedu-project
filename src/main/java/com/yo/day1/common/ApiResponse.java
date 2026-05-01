@@ -1,0 +1,28 @@
+package com.yo.day1.common;
+
+import com.yo.day1.domain.entity.Teacher;
+
+import java.time.LocalDateTime;
+//ApiResponse giup tat ca Api giups dinhj dinh tra ve cung 1 format
+public record ApiResponse<T>(boolean success, String message, T data, LocalDateTime timestamp) {
+
+    public static <T> ApiResponse<T> success(String message,T data) {
+        return new ApiResponse<>(true, message, data,LocalDateTime.now());
+    }
+
+    public static <T> ApiResponse<T> success(T data) {
+        return success("success", data);
+    }
+
+    public static ApiResponse<Void> successMessage(String message) {
+        return success(message, null);
+    }
+
+    public static <T> ApiResponse<T> error(String message) {
+        return new ApiResponse<>(false, message, null, LocalDateTime.now());
+    }
+
+    public static <T> ApiResponse<T> error(String message, T data) {
+        return new ApiResponse<>(false, message, data, LocalDateTime.now());
+    }
+}
